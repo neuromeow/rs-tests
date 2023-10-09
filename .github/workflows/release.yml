@@ -95,7 +95,7 @@ jobs:
         with:
 #          name: ${{ matrix.target }}
           name: "${{ matrix.target }}.tar.gz"
-#          path: "*.tar.gz"
+          path: "*.tar.gz"
 #          path: ${{ matrix.target }}.tar.gz
 #          path: |
 #            *.zip
