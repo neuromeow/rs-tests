@@ -95,7 +95,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.target }}
-          path: "*.tar.gz"
+#          path: "*.tar.gz"
+          path: ${{ matrix.target }}.tar.gz
 #          path: |
 #            *.deb
 #            *.tar.gz
@@ -109,7 +110,7 @@ jobs:
 #        with:
 #          name: ${{ matrix.target }}
 #          path: "*.tar.gz"
-      - name: Crenamingate release
+      - name: Create release
         uses: softprops/action-gh-release@v1
         with:
           draft: true
