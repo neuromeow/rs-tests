@@ -117,8 +117,8 @@ jobs:
           draft: true
 #          files: "*.tar.gz"
           files: |
-            *.zip
-            *.tar.gz
+            /**/*.zip
+            /**/*.tar.gz
 #            *.deb
 #            *.zip
 #          name: ${{ steps.get_version.outputs.value }}
