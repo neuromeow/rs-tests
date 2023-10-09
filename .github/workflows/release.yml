@@ -79,11 +79,15 @@ jobs:
       - name: Package (*nix)
 #        if: runner.os != 'Windows'
         run: |
-          tar -cv CHANGELOG.md LICENSE README.md man/ \
-            -C contrib/ completions/ -C ../ \
-            -C target/${{ matrix.target }}/release/ zoxide |
+#          tar -cv CHANGELOG.md LICENSE README.md man/ \
+#            -C contrib/ completions/ -C ../ \
+#            -C target/${{ matrix.target }}/release/ zoxide |
+#            gzip --best > \
+#            zoxide-${{ steps.get_version.outputs.value }}-${{ matrix.target }}.tar.gz
+          tar -cv LICENSE README.md \
+            -C target/${{ matrix.target }}/release/ totum-revolutum |
             gzip --best > \
-            zoxide-${{ steps.get_version.outputs.value }}-${{ matrix.target }}.tar.gz
+            totum-revolutum-${{ steps.get_version.outputs.value }}-${{ matrix.target }}.tar.gz
 #      - name: Package (Windows)
 #        if: runner.os == 'Windows'
 #        run: |
@@ -99,8 +103,8 @@ jobs:
             *.tar.gz
 #            *.zip
       - name: Create release
-        if: |
-          github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'chore(release)')
+#        if: |
+#          github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'chore(release)')
         uses: softprops/action-gh-release@v1
         with:
           draft: true
