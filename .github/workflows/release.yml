@@ -19,9 +19,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-#          - os: ubuntu-latest
-#            target: x86_64-unknown-linux-musl
-#            deb: true
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+            deb: true
 #          - os: ubuntu-latest
 #            target: arm-unknown-linux-musleabihf
 #          - os: ubuntu-latest
@@ -31,8 +31,8 @@ jobs:
 #            deb: true
           - os: macos-11
             target: x86_64-apple-darwin
-          - os: macos-11
-            target: aarch64-apple-darwin
+#          - os: macos-11
+#            target: aarch64-apple-darwin
 #          - os: windows-latest
 #            target: x86_64-pc-windows-msvc
 #          - os: windows-latest
@@ -67,17 +67,17 @@ jobs:
           command: build
           args: --release --locked --target=${{ matrix.target }} --color=always --verbose
           use-cross: ${{ runner.os == 'Linux' }}
-#      - name: Install cargo-deb
-#        if: ${{ matrix.deb == true }}
-#        uses: actions-rs/install@v0.1
-#        with:
-#          crate: cargo-deb
-#      - name: Build deb
-#        if: ${{ matrix.deb == true }}
-#        uses: actions-rs/cargo@v1
-#        with:
-#          command: deb
-#          args: --no-build --no-strip --output=. --target=${{ matrix.target }}
+      - name: Install cargo-deb
+        if: ${{ matrix.deb == true }}
+        uses: actions-rs/install@v0.1
+        with:
+          crate: cargo-deb
+      - name: Build deb
+        if: ${{ matrix.deb == true }}
+        uses: actions-rs/cargo@v1
+        with:
+          command: deb
+          args: --no-build --no-strip --output=. --target=${{ matrix.target }}
       - name: Package (*nix)
 #        if: runner.os != 'Windows'
         run: |
@@ -96,10 +96,10 @@ jobs:
         with:
           name: ${{ matrix.target }}
 #          path: "*.tar.gz"
-          path: ${{ matrix.target }}.tar.gz
-#          path: |
-#            *.deb
-#            *.tar.gz
+#          path: ${{ matrix.target }}.tar.gz
+          path: |
+            *.deb
+            *.tar.gz
 #            *.zip
   release:
     name: Create release
@@ -114,6 +114,10 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           draft: true
-          files: "*.tar.gz"
+#          files: "*.tar.gz"
+          files: |
+            *.deb
+            *.tar.gz
+#            *.zip
 #          name: ${{ steps.get_version.outputs.value }}
           name: ${{ needs.build.outputs.version }}
