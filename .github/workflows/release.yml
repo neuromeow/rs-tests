@@ -16,7 +16,7 @@ jobs:
     name: ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     strategy:
-#      fail-fast: false
+      fail-fast: false
       matrix:
         include:
           - os: ubuntu-latest
@@ -65,17 +65,17 @@ jobs:
           command: build
           args: --release --locked --target=${{ matrix.target }} --color=always --verbose
           use-cross: ${{ runner.os == 'Linux' }}
-      - name: Install cargo-deb
-        if: ${{ matrix.deb == true }}
-        uses: actions-rs/install@v0.1
-        with:
-          crate: cargo-deb
-      - name: Build deb
-        if: ${{ matrix.deb == true }}
-        uses: actions-rs/cargo@v1
-        with:
-          command: deb
-          args: --no-build --no-strip --output=. --target=${{ matrix.target }}
+#      - name: Install cargo-deb
+#        if: ${{ matrix.deb == true }}
+#        uses: actions-rs/install@v0.1
+#        with:
+#          crate: cargo-deb
+#      - name: Build deb
+#        if: ${{ matrix.deb == true }}
+#        uses: actions-rs/cargo@v1
+#        with:
+#          command: deb
+#          args: --no-build --no-strip --output=. --target=${{ matrix.target }}
       - name: Package (*nix)
 #        if: runner.os != 'Windows'
         run: |
@@ -93,9 +93,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.target }}
-          path: |
-            *.deb
-            *.tar.gz
+          path: "*.tar.gz"
+#          path: |
+#            *.deb
+#            *.tar.gz
 #            *.zip
       - name: Create release
 #        if: |
@@ -103,9 +104,10 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           draft: true
-          files: |
-            *.deb
-            *.tar.gz
+#          files: |
+#            *.deb
+#            *.tar.gz
 #            *.zip
+          files: "*.tar.gz"
           name: ${{ steps.get_version.outputs.value }}
-#          tag_name: ""
+          tag_name: ""
