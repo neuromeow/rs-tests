@@ -12,7 +12,7 @@ on:
 permissions:
   contents: write
 jobs:
-  release:
+  build:
     name: ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -98,16 +98,14 @@ jobs:
 #            *.deb
 #            *.tar.gz
 #            *.zip
+  release:
+    name: Create release
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Create release
-#        if: |
-#          github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'chore(release)')
         uses: softprops/action-gh-release@v1
         with:
           draft: true
-#          files: |
-#            *.deb
-#            *.tar.gz
-#            *.zip
           files: "*.tar.gz"
           name: ${{ steps.get_version.outputs.value }}
-#          tag_name: ""
