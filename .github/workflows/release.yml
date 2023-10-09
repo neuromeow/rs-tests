@@ -110,4 +110,4 @@ jobs:
 #            *.zip
           files: "*.tar.gz"
           name: ${{ steps.get_version.outputs.value }}
-          tag_name: ""
+#          tag_name: ""
