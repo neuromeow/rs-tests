@@ -111,14 +111,15 @@ jobs:
 #        with:
 #          name: ${{ matrix.target }}
 #          path: "*.tar.gz"
+#          path: "./artifacts"
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
           draft: true
 #          files: "*.tar.gz"
           files: |
-            /**/*.zip
-            /**/*.tar.gz
+            ./**/*.zip
+            ./**/*.tar.gz
 #            *.deb
 #            *.zip
 #          name: ${{ steps.get_version.outputs.value }}
