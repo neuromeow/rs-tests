@@ -75,4 +75,4 @@ jobs:
         with:
           draft: true
           files: '*/*.tar.gz'
-          name: ${{ needs.build.outputs.version_from_toml }}
+          name: ${{ needs.build.outputs.version }}
