@@ -37,6 +37,8 @@ jobs:
 #            target: x86_64-pc-windows-msvc
 #          - os: windows-latest
 #            target: aarch64-pc-windows-msvc
+    outputs:
+      version: ${{ steps.get_version.outputs.value }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -106,10 +108,11 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: ${{ matrix.target }}
-          path: "*.tar.gz"
+#          path: "*.tar.gz"
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
           draft: true
           files: "*.tar.gz"
-          name: ${{ steps.get_version.outputs.value }}
+#          name: ${{ steps.get_version.outputs.value }}
+          name: ${{ needs.build.outputs.version }}
