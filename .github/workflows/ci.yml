@@ -40,7 +40,7 @@ jobs:
           args: -- -D warnings
 
   test:
-    name: Execute all unit and integration tests and build examples of a local package
+    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
