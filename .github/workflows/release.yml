@@ -107,8 +107,9 @@ jobs:
     steps:
       - uses: actions/download-artifact@master
         with:
-          name: ${{ matrix.target }}
-          path: "*.tar.gz"
+#          name: ${{ matrix.target }}
+#          path: "*.tar.gz"
+          name: "*.tar.gz"
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
