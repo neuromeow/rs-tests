@@ -79,7 +79,7 @@ jobs:
 #          command: deb
 #          args: --no-build --no-strip --output=. --target=${{ matrix.target }}
       - name: Package (*nix)
-#        if: runner.os != 'Windows'
+        if: runner.os != 'Windows'
         run: |
           tar -cv LICENSE README.md \
             -C target/${{ matrix.target }}/release/ totum-revolutum |
