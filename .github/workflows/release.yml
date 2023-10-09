@@ -31,10 +31,10 @@ jobs:
 #            deb: true
           - os: macos-11
             target: x86_64-apple-darwin
-#          - os: macos-11
-#            target: aarch64-apple-darwin
-          - os: windows-latest
-            target: x86_64-pc-windows-msvc
+          - os: macos-11
+            target: aarch64-apple-darwin
+#          - os: windows-latest
+#            target: x86_64-pc-windows-msvc
 #          - os: windows-latest
 #            target: aarch64-pc-windows-msvc
     outputs:
@@ -79,26 +79,27 @@ jobs:
 #          command: deb
 #          args: --no-build --no-strip --output=. --target=${{ matrix.target }}
       - name: Package (*nix)
-        if: runner.os != 'Windows'
+#        if: runner.os != 'Windows'
         run: |
           tar -cv LICENSE README.md \
             -C target/${{ matrix.target }}/release/ totum-revolutum |
             gzip --best > \
             totum-revolutum-${{ steps.get_version.outputs.value }}-${{ matrix.target }}.tar.gz
-      - name: Package (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          7z a totum-revolutum-${{ steps.get_version.outputs.value }}-${{ matrix.target }}.zip `
-            LICENSE README.md ./target/${{ matrix.target }}/release/totum-revolutum.exe
+#      - name: Package (Windows)
+#        if: runner.os == 'Windows'
+#        run: |
+#          7z a totum-revolutum-${{ steps.get_version.outputs.value }}-${{ matrix.target }}.zip `
+#            LICENSE README.md ./target/${{ matrix.target }}/release/totum-revolutum.exe
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.target }}
+#          name: ${{ matrix.target }}
+          name: "${{ matrix.target }}.tar.gz"
 #          path: "*.tar.gz"
 #          path: ${{ matrix.target }}.tar.gz
-          path: |
-            *.zip
-            *.tar.gz
+#          path: |
+#            *.zip
+#            *.tar.gz
 #            *.deb
 #            *.zip
   release:
