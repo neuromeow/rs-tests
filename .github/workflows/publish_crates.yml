@@ -1,13 +1,14 @@
-name: Publishing on crates.io
+name: Publishing to Crates.io
 
 on:
   release:
-    types: [published]
+    types:
+      - published
   workflow_dispatch:
 
 jobs:
   publish:
-    name: Publish crate
+    name: Publish a Crate to crates.io
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

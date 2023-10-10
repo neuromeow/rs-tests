@@ -1,4 +1,4 @@
-name: Releasing on GitHub
+name: Creating Release on GitHub
 
 on:
   push:
@@ -63,7 +63,7 @@ jobs:
           path: '*.tar.gz'
 
   release:
-    name: Create a draft release
+    name: Create a draft release on GitHub
     runs-on: ubuntu-latest
     needs: build
     steps:
