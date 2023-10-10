@@ -1,6 +1,6 @@
 [package]
 name = "totum-revolutum"
-version = "0.2.2"
+version = "0.2.3"
 authors = ["neuromeow <no-reply@gmail.com>"]
 edition = "2021"
 description = "A tool for something"
