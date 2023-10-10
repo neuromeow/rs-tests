@@ -1,4 +1,12 @@
 [package]
 name = "totum-revolutum"
-version = "0.2.1"
+version = "0.2.2"
+authors = ["neuromeow <no-reply@gmail.com>"]
 edition = "2021"
+description = "A tool for something"
+readme = "README.md"
+homepage = "https://github.com/neuromeow/totum-revolutum"
+repository = "https://github.com/neuromeow/totum-revolutum"
+license = "MIT"
+keywords = ["demo"]
+categories = ["development-tools"]
