@@ -19,4 +19,4 @@ jobs:
           profile: minimal
       - run: cargo publish --token ${CRATES_TOKEN}
         env:
-          CRATES_TOKEN: ${{ secrets.CRATES_TOKEN }}
+          CRATES_TOKEN: ${{ secrets.CRATES_TOTUM_REVOLUTUM_TOKEN }}
