@@ -1,7 +1,8 @@
 [package]
 name = "totum-revolutum"
-version = "0.2.3"
+version = "0.2.4"
 authors = ["neuromeow <no-reply@gmail.com>"]
+rust-version = "1.56.1"
 edition = "2021"
 description = "A tool for something"
 readme = "README.md"
