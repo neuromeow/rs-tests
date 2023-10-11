@@ -1,9 +1,9 @@
 name: Creating Release on GitHub
 
 on:
-#  push:
-#    tags:
-#      - 'v[0-9]+.[0-9]+.[0-9]+'
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
 
 permissions:
@@ -29,6 +29,10 @@ jobs:
             target: x86_64-apple-darwin
           - os: macos-latest
             target: aarch64-apple-darwin
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+          - os: windows-latest
+            target: aarch64-pc-windows-msvc
     steps:
       - uses: actions/checkout@v4
         with:
@@ -52,15 +56,26 @@ jobs:
           command: build
           args: --release --locked --target=${{ matrix.target }} --color=always --verbose
           use-cross: ${{ runner.os == 'Linux' }}
-      - run: |
+      - if: runner.os != 'Windows'
+        run: |
           tar -cv LICENSE README.md \
             -C target/${{ matrix.target }}/release/ totum-revolutum |
             gzip --best > \
             totum-revolutum-${{ steps.version_from_toml.outputs.value }}-${{ matrix.target }}.tar.gz
-      - uses: actions/upload-artifact@v3
+      - if: runner.os == 'Windows'
+        run: |
+          7z a totum-revolutum-${{ steps.version_from_toml.outputs.value }}-${{ matrix.target }}.zip `
+            LICENSE README.md ./target/${{ matrix.target }}/release/totum-revolutum.exe
+      - if: runner.os != 'Windows'
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.target }}.tar.gz
           path: '*.tar.gz'
+      - if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.target }}.zip
+          path: '*.zip'
 
   release:
     name: Create a draft release on GitHub
@@ -71,4 +86,6 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           draft: true
-          files: '*/*.tar.gz'
+          files: |
+            '*/*.tar.gz'
+            '*/*.zip'
