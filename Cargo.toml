@@ -1,6 +1,6 @@
 [package]
 name = "totum-revolutum"
-version = "0.2.6"
+version = "0.2.7"
 authors = ["neuromeow <no-reply@gmail.com>"]
 rust-version = "1.56.1"
 edition = "2021"
